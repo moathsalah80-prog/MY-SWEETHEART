@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى أميرتي 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        
+        body {
+            background: linear-gradient(135deg, #0f050f, #1a0514, #2d091d, #0f050f);
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center; 
+            overflow-x: hidden; color: white; padding-bottom: 120px;
+            word-spacing: 2px; 
+            line-height: 1.6; 
+        }
+
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        #background-elements { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none; }
+        .memory-photo {
+            position: absolute; width: 130px; height: 130px; background-size: cover; background-position: center;
+            border-radius: 20px; opacity: 0; animation: driftPhotos linear infinite;
+        }
+        .falling-heart { position: absolute; font-size: 1.5rem; color: #ff69b4; opacity: 0.4; animation: fallHearts linear infinite; }
+
+        @keyframes driftPhotos {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.07; }
+            85% { opacity: 0.07; }
+            100% { transform: translateY(-25vh) rotate(30deg); opacity: 0; }
+        }
+        @keyframes fallHearts {
+            0% { transform: translateY(-10vh); opacity: 0; }
+            10% { opacity: 0.4; }
+            100% { transform: translateY(110vh); opacity: 0; }
+        }
+
+        .glass-box {
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; padding: 50px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.7); text-align: center; z-index: 10; margin: 40px 0; width: 92%; max-width: 600px;
+        }
+
+        .magic-btn {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            color: white; border: none; padding: 18px 35px; border-radius: 50px;
+            font-size: 1.1rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+            transition: 0.3s; margin-bottom: 30px;
+        }
+
+        #random-love-msg { 
+            min-height: 4em; color: #ffeb3b; font-weight: bold; 
+            font-size: 1.15rem; line-height: 1.8; padding: 0 15px; 
+            overflow-wrap: break-word;
+        }
+
+        #typewriter-header { 
+            font-size: 1.5rem; min-height: 2.2em; color: #ff69b4; font-weight: bold; 
+            margin-bottom: 40px; line-height: 1.8;
+        }
+        
+        .timer-container { 
+            background: rgba(255, 255, 255, 0.05); border-radius: 70px; padding: 30px 50px; 
+            display: inline-block; border: 1px solid rgba(255, 235, 59, 0.4); margin-bottom: 40px; 
+        }
+        .timer-main { font-size: 32px; color: #ffeb3b; font-weight: bold; }
+
+        .music-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 30px 0 50px 0; }
+        .track { padding: 14px 25px; background: rgba(255, 20, 147, 0.1); border: 1px solid rgba(255, 20, 147, 0.2); border-radius: 30px; cursor: pointer; font-size: 15px; transition: 0.3s; }
+        .track.active { background: #ff1493; box-shadow: 0 0 20px #ff1493; border-color: transparent; }
+
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 60px; margin: 80px 0; justify-items: center; }
+        .card { width: 180px; min-height: 250px; cursor: pointer; transform: rotate(var(--r)); transition: 0.6s; perspective: 1000px; }
+        .card-inner { width: 100%; height: 180px; position: relative; transition: transform 0.8s; transform-style: preserve-3d; border-radius: 30px; }
+        .card.flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { width: 100%; height: 100%; position: absolute; top: 0; left: 0; backface-visibility: hidden; border-radius: 30px; border: 2px solid rgba(255,255,255,0.2); }
+        .card-front { background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; font-size: 50px; color: #ff1493; z-index: 2; }
+        .card-back { transform: rotateY(180deg); background-size: cover; background-position: center; z-index: 1; }
+        
+        /* تعديل الكلمات تحت الكروت لعدم التداخل */
+        .card-caption { 
+            margin-top: 20px; font-size: 14px; line-height: 1.5; 
+            text-align: center; font-weight: bold; color: #ffeb3b;
+            padding: 0 5px; height: 50px; display: flex; align-items: center; justify-content: center;
+        }
+
+        #countdown-box { cursor: pointer; border: 1px solid #ff1493; margin-top: 50px; height: 80px; overflow: hidden; transition: 0.8s; }
+        #countdown-box.active { height: 320px; } 
+        #countdown-timer-full { font-size: 1.8rem; color: #ffeb3b; margin-top: 35px; font-weight: bold; }
+
+        .msg-section { margin-top: 100px; padding-top: 30px; }
+        .msg-item { 
+            background: rgba(255,255,255,0.04); margin: 25px 0; padding: 30px; 
+            border-radius: 30px; cursor: pointer; border-right: 6px solid #ff1493; 
+            text-align: right; transition: 0.3s;
+        }
+        
+        .msg-text { 
+            color: #ffeb3b; margin-top: 20px; font-weight: bold; display: block; 
+            line-height: 1.8; font-size: 16px; word-spacing: 2px;
+            white-space: normal; overflow-wrap: break-word;
+        }
+
+        .secret-gift-box {
+            background: linear-gradient(45deg, #4b0082, #800080);
+            border: 3px dashed #ffeb3b; border-radius: 30px; padding: 30px;
+            margin-top: 50px; cursor: pointer; transition: 0.5s;
+        }
+        .secret-gift-box:hover { transform: scale(1.02); box-shadow: 0 0 30px #ffeb3b; }
+
+        /* ستايل نافذة المودال */
+        #custom-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center;
+        }
+        .modal-content {
+            background: #2d091d; border: 2px solid #ff1493; padding: 40px;
+            border-radius: 30px; text-align: center; max-width: 450px; width: 90%;
+            box-shadow: 0 0 40px #ff1493;
+        }
+
+        #login-screen { margin-top: 20vh; }
+        input { 
+            width: 100%; padding: 18px; margin-bottom: 25px; border-radius: 15px; 
+            border: 1px solid rgba(255,255,255,0.2); outline: none; text-align: center; 
+            font-size: 18px; background: rgba(0,0,0,0.6); color: white; 
+        }
+        .btn-login { 
+            background: linear-gradient(45deg, #ff1493, #880e4f); color: white; 
+            border: none; padding: 18px; border-radius: 15px; cursor: pointer; 
+            font-size: 20px; font-weight: bold; width: 100%; transition: 0.4s; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="background-elements"></div>
+
+    <div id="custom-modal">
+        <div class="modal-content" id="modal-content-area">
+            </div>
+    </div>
+
+    <div id="login-screen" class="glass-box">
+        <h2 style="color: #ff1493; margin-bottom: 25px;">انا هفضل طول عمري جنبك ❤️🥺</h2>
+        <input type="password" id="passInput" placeholder="الباسورد هو عيد ميلادك 🫰">
+        <button class="btn-login" onclick="unlock()">دخول لقلبي ✨</button>
+    </div>
+
+    <div id="main-content" style="display:none;">
+        <div class="glass-box">
+            <div id="typewriter-header"></div>
+            <div class="timer-container">
+                <div class="timer-main" id="timer">00ي : 00س : 00د : 00ث</div>
+            </div>
+            
+            <audio id="player"><source id="audioSource" src="song1.mp3" type="audio/mpeg"></audio>
+            <div class="music-list">
+                <div class="track active" onclick="playTrack('song1.mp3', this)">🎵 كاريوكي</div>
+                <div class="track" onclick="playTrack('song2.mp3', this)">🎵 ليجي سي</div>
+                <div class="track" onclick="playTrack('song3.mp3', this)">🎵 اوبس اوعي</div>
+                <div class="track" onclick="playTrack('song4.mp3', this)">🎵 ف عيني انتي احلي م كل البنات</div>
+                <div class="track" onclick="playTrack('song5.mp3', this)">🎵 مزه </div>
+            </div>
+
+            <div id="countdown-box" class="glass-box" onclick="toggleCountdown()">
+                <span id="click-hint" style="font-weight: bold; font-size: 18px; color: #ffeb3b;">✨ اضغطي هنا فيه مفاجأة.. ✨</span>
+                <div id="countdown-timer-full" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div class="glass-box">
+            <h3 style="margin-bottom: 30px; color: #ff69b4;">كلام من قلبي ليكي ✨🌸</h3>
+            <button class="magic-btn" onclick="showRandomLoveMsg()">دوس هنا وشوفي هقولك إيه ❤️</button>
+            <div id="random-love-msg">اضغطي على الزرار عشان تشوفي رسالة..</div>
+        </div>
+
+        <div class="gallery" id="photoGallery"></div>
+
+        <div class="glass-box msg-section">
+            <h2 style="color: #ff69b4; margin-bottom: 40px;">مقدرش اعيش من غير عموما 🥺</h2>
+            <div class="msg-item" onclick="typeInMsg(this, 'لَا والذي صَوَّرَك مَالَا قَ لِلعينِ.. غَيرُك ولا سَوَّى بي أَحَد سَواتِك')">❤️ اضغطي هنا.. <span class="msg-text"></span></div>
+            <div class="msg-item" onclick="typeInMsg(this, 'عُيونُكِ نَهرٌ والجُفُونُ ضِفَافٌ.. تَحَيَّرَ قَلبي وهُوَ مُمتَلِئٌ بِهَا.')">❤️ وهنا كمان.. <span class="msg-text"></span></div>
+            <div class="msg-item" onclick="typeInMsg(this, 'وَمَا عَجَبي مَوْتُ المُحِبِّينَ في الهَوى.. وَلكِنَّ بَقَاءَ العَاشِقِينَ عَجِيبُ.' )">❤️ واضغطي هنا.. <span class="msg-text"></span></div>
+            <div class="msg-item" onclick="typeInMsg(this, 'أَنَا الشَاعِرُ مَا أَسعَفَتْه حُروفُه.. الحُبُّ من لُغَةِ المَشَاعِرِ أَعظَمُ')">❤️ آخر حاجة.. <span class="msg-text"></span></div>
+
+            <div class="secret-gift-box" onclick="openSecretPasswordUI()">
+                <h3 style="color: #ffeb3b;"> صندوق المفاجآت الملكي 🎁</h3>
+                <p style="font-size: 14px;">(ومش هيتفتح الا بوقت معين يروح امك)</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loveMsgs = [
+            "أنتي أجمل صدفة حصلت في حياتي والله", "ضحكتك هي اللي بتنور يومي وتخليني مبسوط", "مقدرش أتخيل يومي من غير ما أكلمك واسمع صوتك", "أنتي مش بس حبيبتي أنتي بنتي وأمي وكل حاجة ليا", "بحب تفاصيلك الصغيرة اللي محدش بياخد باله منها","نفسي أفضل جنبك ومعاكي لآخر العمر", "أنتي أجمل واحدة شافتها عيني بجد ⭐", "وجودك في حياتي نعمة كبيرة أحمد ربنا عليها دايماً","كل مرة بشوفك فيها بحس إني بحبك من أول وجديد", "أنتي الأمان والراحة اللي كنت بدور عليهم طول حياتي","لو لفيت الدنيا دي كلها مش هلاقي حد زيك في حنيتك وقلبك", "نفسي أحققلك كل حلم بتتمنيه وأشوفك دايماً مبسوطة", "أنتي حلمي اللي اتحقق وكنت بدعي بيه دايماً","بحب كلامك وطريقة تفكيرك المجنونة دي جداً 🥰", "أنتي الوحيدة اللي قادرة تخليني أضحك من قلبي بجد","يا قلبي من جوه ربي يخليكي ليا وما يحرمني منك أبداً", "عمر ما حد هياخد مكانك في قلبي أبداً أنتي وبس ♾️💘","ينفع كده تزعلي وانا موجود","بحبك اوي واوعي تزعلي مني يلولو يقمر انت يخربيت حلاوه امك","اتخنقي وتعاليلي انا هبسطك",
+        ];
+
+        function showRandomLoveMsg() {
+            const msg = loveMsgs[Math.floor(Math.random() * loveMsgs.length)];
+            dynamicType(document.getElementById('random-love-msg'), msg, 55);
+        }
+
+        function createBackgroundEffects() {
+            const container = document.getElementById('background-elements');
+            for (let i = 1; i <= 12; i++) {
+                const photo = document.createElement('div');
+                photo.className = 'memory-photo';
+                photo.style.backgroundImage = `url('photo${(i%10)+1}.jpeg')`;
+                photo.style.left = (Math.random() * 90) + 'vw';
+                photo.style.top = (Math.random() * 80) + 'vh';
+                photo.style.animationDuration = (Math.random() * 10 + 20) + 's';
+                photo.style.animationDelay = (Math.random() * 15) + 's';
+                container.appendChild(photo);
+            }
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart'; heart.innerHTML = '💖';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
+                container.appendChild(heart);
+                setTimeout(() => heart.remove(), 8000);
+            }, 1000);
+        }
+
+        function playTrack(src, el) {
+            const player = document.getElementById('player');
+            const source = document.getElementById('audioSource');
+            source.src = src; player.load(); player.play();
+            document.querySelectorAll('.track').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function dynamicType(element, text, speed = 50) {
+            element.innerHTML = '';
+            let i = 0;
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i) === ' ' ? '&nbsp;' : text.charAt(i);
+                    i++;
+                } else { clearInterval(timer); }
+            }, speed);
+        }
+
+        function typeInMsg(el, fullText) {
+            const target = el.querySelector('.msg-text');
+            if(target.innerHTML === '') dynamicType(target, fullText, 55);
+        }
+
+        function unlock() {
+            if(document.getElementById('passInput').value === '2012612') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                createBackgroundEffects();
+                dynamicType(document.getElementById('typewriter-header'), "كل لحظة معاكي هي عمر جديد... ♾️💖", 100);
+                startMainTimer();
+                document.getElementById('player').play();
+            } else { alert('يا روحي قايلكك مش هيتفتح.. 🥺'); }
+        }
+
+        function startMainTimer() {
+            const startDate = new Date(2024, 9, 1); 
+            setInterval(() => {
+                const diff = new Date() - startDate;
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff / 3600000) % 24);
+                const m = Math.floor((diff / 60000) % 60);
+                const s = Math.floor((diff / 1000) % 60);
+                document.getElementById('timer').innerHTML = `${d}ي : ${h}س : ${m}د : ${s}ث`;
+            }, 1000);
+        }
+
+        function toggleCountdown() {
+            const box = document.getElementById('countdown-box');
+            box.classList.toggle('active');
+            document.getElementById('countdown-timer-full').style.display = box.classList.contains('active') ? 'block' : 'none';
+            
+            // التاريخ الجديد: 12 يونيو 2026
+            const target = new Date("June 12, 2026 00:00:00").getTime();
+            
+            if (box.classList.contains('active')) {
+                const counterInt = setInterval(() => {
+                    if (!box.classList.contains('active')) { clearInterval(counterInt); return; }
+                    const gap = target - new Date().getTime();
+                    const d = Math.floor(gap / 86400000);
+                    const h = Math.floor((gap % 86400000) / 3600000);
+                    const m = Math.floor((gap % 3600000) / 60000);
+                    const s = Math.floor((gap % 60000) / 1000);
+                    document.getElementById('countdown-timer-full').innerText = `${d}ي : ${h}س : ${m}د : ${s}ث`;
+                }, 1000);
+            }
+        }
+
+        // واجهة الباسورد والمفاجأة داخل الموقع
+        function openSecretPasswordUI() {
+            const area = document.getElementById('modal-content-area');
+            area.innerHTML = `
+                <h3 style="color: #ff1493; margin-bottom: 20px;">براحتك بقى جربي كلمه السر بس مستحيل تعرفيها✨</h3>
+                <input type="password" id="secretPass" placeholder="اكتبي الكلمة هناي حوله.">
+                <button class="btn-login" onclick="validateSecretBox()">فتح المفاجأة 🎁</button>
+                <p style="margin-top:15px; cursor:pointer; font-size:14px;" onclick="closeModal()">إلغاء</p>
+            `;
+            document.getElementById('custom-modal').style.display = 'flex';
+        }
+
+        function validateSecretBox() {
+            const val = document.getElementById('secretPass').value;
+            const area = document.getElementById('modal-content-area');
+            if(val === "امك قرعه") {
+                const now = new Date();
+                const target = new Date(2026, 5, 12); // شهر 5 يعني يونيو في JS
+                if(now < target) {
+                    area.innerHTML = `
+                        <p style="color: #ffeb3b; font-weight: bold; font-size: 18px; margin-bottom: 25px;">والله ما هيا مفتوحة غير بمزاجي وبوقت معين 😂😂😂</p>
+                        <button class="magic-btn" style="margin-bottom:0;" onclick="closeModal()">ماشي يا رخم ❤️</button>
+                    `;
+                } else {
+                    area.innerHTML = `
+                        <p style="color: #ffeb3b; font-weight: bold; font-size: 18px; margin-bottom: 25px;">مبروك! فتحتي الصندوق.. بحبك اوي ❤️</p>
+                        <button class="magic-btn" style="margin-bottom:0;" onclick="closeModal()">شكراً يا قلبي ✨</button>
+                    `;
+                }
+            } else {
+                area.innerHTML = `
+                    <p style="color: #ff69b4; font-weight: bold; font-size: 18px; margin-bottom: 25px;">الباسورد غلط.. حاولي تاني يا قمري 🥺</p>
+                    <button class="magic-btn" style="margin-bottom:0;" onclick="openSecretPasswordUI()">حاول تاني</button>
+                `;
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').style.display = 'none';
+        }
+
+        const captions = ["احلي ماتشنج 🫰", "أحلى حاجه ف حياتي 💖", "انتي قمر 🥰", "ضحكتك جنة وانا فيها غرقان ي وتكه", "كنتي قمر هنا وخليتي القمر غير منك كمان بعشق امك🔥", "ذكرى غالية❤️ متتنسيش وخصوصا معاكي يمزه", "يا أجمل واحدة شافتها عيني", "كنتي مزه 😉", "انتي وبس ♾️", "دايماً في قلبي 💘"];
+        const gallery = document.getElementById('photoGallery');
+        for(let j=1; j<=10; j++) {
+            const rotation = (Math.random() * 14 - 7) + 'deg';
+            gallery.innerHTML += `
+                <div class="card" style="--r: ${rotation}" onclick="handleCardClick(this, '${captions[j-1]}')">
+                    <div class="card-inner">
+                        <div class="card-front">🫰</div>
+                        <div class="card-back" style="background-image: url('photo${j}.jpeg')"></div>
+                    </div>
+                    <div class="card-caption"></div>
+                </div>`;
+        }
+
+        function handleCardClick(el, text) {
+            el.classList.toggle('flipped');
+            const cap = el.querySelector('.card-caption');
+            if(el.classList.contains('flipped') && cap.innerHTML === '') {
+                setTimeout(() => dynamicType(cap, text, 85), 450);
+            }
+        }
+    </script>
+</body>
+</html>
