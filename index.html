@@ -81,7 +81,6 @@
         .card-front { background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; font-size: 50px; color: #ff1493; z-index: 2; }
         .card-back { transform: rotateY(180deg); background-size: cover; background-position: center; z-index: 1; }
         
-        /* تعديل الكلمات تحت الكروت لعدم التداخل */
         .card-caption { 
             margin-top: 20px; font-size: 14px; line-height: 1.5; 
             text-align: center; font-weight: bold; color: #ffeb3b;
@@ -90,7 +89,7 @@
 
         #countdown-box { cursor: pointer; border: 1px solid #ff1493; margin-top: 50px; height: 80px; overflow: hidden; transition: 0.8s; }
         #countdown-box.active { height: 320px; } 
-        #countdown-timer-full { font-size: 1.8rem; color: #ffeb3b; margin-top: 35px; font-weight: bold; }
+        #countdown-timer-full { font-size: 1.6rem; color: #ffeb3b; margin-top: 25px; font-weight: bold; }
 
         .msg-section { margin-top: 100px; padding-top: 30px; }
         .msg-item { 
@@ -112,7 +111,6 @@
         }
         .secret-gift-box:hover { transform: scale(1.02); box-shadow: 0 0 30px #ffeb3b; }
 
-        /* ستايل نافذة المودال */
         #custom-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center;
@@ -141,8 +139,7 @@
     <div id="background-elements"></div>
 
     <div id="custom-modal">
-        <div class="modal-content" id="modal-content-area">
-            </div>
+        <div class="modal-content" id="modal-content-area"></div>
     </div>
 
     <div id="login-screen" class="glass-box">
@@ -166,34 +163,34 @@
                 <div class="track" onclick="playTrack('song4.mp3', this)">🎵 ف عيني انتي احلي م كل البنات</div>
                 <div class="track" onclick="playTrack('song5.mp3', this)">🎵 مزه </div>
             </div>
+
             <div id="countdown-box" class="glass-box" onclick="toggleCountdown()">
-    <span id="click-hint" style="font-weight: bold; font-size: 18px; color: #ffeb3b;">✨ اضغطي هنا فيه مفاجأة.. ✨</span>
-    
-    <p id="countdown-text" style="display:none; color: #ff69b4; margin-top: 20px; font-weight: bold; font-size: 1.1rem; line-height: 1.6;">
-        ده الوقت اللي اتبقي علي اجمل لحظه حصلت ف الدنيا ❤️
-    </p>
+                <span id="click-hint" style="font-weight: bold; font-size: 18px; color: #ffeb3b;">✨ اضغطي هنا فيه مفاجأة.. ✨</span>
+                <p id="countdown-text" style="display:none; color: #ff69b4; margin-top: 20px; font-weight: bold; font-size: 1.1rem; line-height: 1.6;">
+                    ده الوقت اللي اتبقي علي اجمل لحظه حصلت ف الدنيا ❤️
+                </p>
+                <div id="countdown-timer-full" style="display:none; margin-top: 20px;"></div>
+            </div>
 
-    <div id="countdown-timer-full" style="display:none; margin-top: 20px;"></div>
-</div>
+            <div class="glass-box" style="margin-top: 40px;">
+                <h3 style="margin-bottom: 30px; color: #ff69b4;">كلام من قلبي ليكي ✨🌸</h3>
+                <button class="magic-btn" onclick="showRandomLoveMsg()">دوس هنا وشوفي هقولك إيه ❤️</button>
+                <div id="random-love-msg">اضغطي على الزرار عشان تشوفي رسالة..</div>
+            </div>
 
-        <div class="glass-box">
-            <h3 style="margin-bottom: 30px; color: #ff69b4;">كلام من قلبي ليكي ✨🌸</h3>
-            <button class="magic-btn" onclick="showRandomLoveMsg()">دوس هنا وشوفي هقولك إيه ❤️</button>
-            <div id="random-love-msg">اضغطي على الزرار عشان تشوفي رسالة..</div>
-        </div>
+            <div class="gallery" id="photoGallery"></div>
 
-        <div class="gallery" id="photoGallery"></div>
+            <div class="glass-box msg-section">
+                <h2 style="color: #ff69b4; margin-bottom: 40px;">مقدرش اعيش من غير عموما 🥺</h2>
+                <div class="msg-item" onclick="typeInMsg(this, 'لَا والذي صَوَّرَك مَالَا قَ لِلعينِ.. غَيرُك ولا سَوَّى بي أَحَد سَواتِك')">❤️ اضغطي هنا.. <span class="msg-text"></span></div>
+                <div class="msg-item" onclick="typeInMsg(this, 'عُيونُكِ نَهرٌ والجُفُونُ ضِفَافٌ.. تَحَيَّرَ قَلبي وهُوَ مُمتَلِئٌ بِهَا.')">❤️ وهنا كمان.. <span class="msg-text"></span></div>
+                <div class="msg-item" onclick="typeInMsg(this, 'وَمَا عَجَبي مَوْتُ المُحِبِّينَ في الهَوى.. وَلكِنَّ بَقَاءَ العَاشِقِينَ عَجِيبُ.' )">❤️ واضغطي هنا.. <span class="msg-text"></span></div>
+                <div class="msg-item" onclick="typeInMsg(this, 'أَنَا الشَاعِرُ مَا أَسعَفَتْه حُروفُه.. الحُبُّ من لُغَةِ المَشَاعِرِ أَعظَمُ')">❤️ آخر حاجة.. <span class="msg-text"></span></div>
 
-        <div class="glass-box msg-section">
-            <h2 style="color: #ff69b4; margin-bottom: 40px;">مقدرش اعيش من غير عموما 🥺</h2>
-            <div class="msg-item" onclick="typeInMsg(this, 'لَا والذي صَوَّرَك مَالَا قَ لِلعينِ.. غَيرُك ولا سَوَّى بي أَحَد سَواتِك')">❤️ اضغطي هنا.. <span class="msg-text"></span></div>
-            <div class="msg-item" onclick="typeInMsg(this, 'عُيونُكِ نَهرٌ والجُفُونُ ضِفَافٌ.. تَحَيَّرَ قَلبي وهُوَ مُمتَلِئٌ بِهَا.')">❤️ وهنا كمان.. <span class="msg-text"></span></div>
-            <div class="msg-item" onclick="typeInMsg(this, 'وَمَا عَجَبي مَوْتُ المُحِبِّينَ في الهَوى.. وَلكِنَّ بَقَاءَ العَاشِقِينَ عَجِيبُ.' )">❤️ واضغطي هنا.. <span class="msg-text"></span></div>
-            <div class="msg-item" onclick="typeInMsg(this, 'أَنَا الشَاعِرُ مَا أَسعَفَتْه حُروفُه.. الحُبُّ من لُغَةِ المَشَاعِرِ أَعظَمُ')">❤️ آخر حاجة.. <span class="msg-text"></span></div>
-
-            <div class="secret-gift-box" onclick="openSecretPasswordUI()">
-                <h3 style="color: #ffeb3b;"> صندوق المفاجآت الملكي 🎁</h3>
-                <p style="font-size: 14px;">(ومش هيتفتح الا بوقت معين يروح امك)</p>
+                <div class="secret-gift-box" onclick="openSecretPasswordUI()">
+                    <h3 style="color: #ffeb3b;"> صندوق المفاجآت الملكي 🎁</h3>
+                    <p style="font-size: 14px;">(ومش هيتفتح الا بوقت معين يروح امك)</p>
+                </div>
             </div>
         </div>
     </div>
@@ -279,26 +276,35 @@
 
         function toggleCountdown() {
             const box = document.getElementById('countdown-box');
-            box.classList.toggle('active');
-            document.getElementById('countdown-timer-full').style.display = box.classList.contains('active') ? 'block' : 'none';
+            const timerFull = document.getElementById('countdown-timer-full');
+            const countdownText = document.getElementById('countdown-text'); 
             
-            // التاريخ الجديد: 12 يونيو 2026
+            box.classList.toggle('active');
+            const isActive = box.classList.contains('active');
+            
+            if (timerFull) timerFull.style.display = isActive ? 'block' : 'none';
+            if (countdownText) countdownText.style.display = isActive ? 'block' : 'none'; 
+            
             const target = new Date("June 12, 2026 00:00:00").getTime();
             
-            if (box.classList.contains('active')) {
+            if (isActive) {
                 const counterInt = setInterval(() => {
                     if (!box.classList.contains('active')) { clearInterval(counterInt); return; }
                     const gap = target - new Date().getTime();
+                    if (gap < 0) {
+                        clearInterval(counterInt);
+                        timerFull.innerText = "وصلنا لأجمل لحظة! ❤️";
+                        return;
+                    }
                     const d = Math.floor(gap / 86400000);
                     const h = Math.floor((gap % 86400000) / 3600000);
                     const m = Math.floor((gap % 3600000) / 60000);
                     const s = Math.floor((gap % 60000) / 1000);
-                    document.getElementById('countdown-timer-full').innerText = `${d}ي : ${h}س : ${m}د : ${s}ث`;
+                    timerFull.innerText = `${d}ي : ${h}س : ${m}د : ${s}ث`;
                 }, 1000);
             }
         }
 
-        // واجهة الباسورد والمفاجأة داخل الموقع
         function openSecretPasswordUI() {
             const area = document.getElementById('modal-content-area');
             area.innerHTML = `
@@ -315,7 +321,7 @@
             const area = document.getElementById('modal-content-area');
             if(val === "امك قرعه") {
                 const now = new Date();
-                const target = new Date(2026, 5, 12); // شهر 5 يعني يونيو في JS
+                const target = new Date(2026, 5, 12); 
                 if(now < target) {
                     area.innerHTML = `
                         <p style="color: #ffeb3b; font-weight: bold; font-size: 18px; margin-bottom: 25px;">والله ما هيا مفتوحة غير بمزاجي وبوقت معين 😂😂😂</p>
@@ -358,53 +364,6 @@
             const cap = el.querySelector('.card-caption');
             if(el.classList.contains('flipped') && cap.innerHTML === '') {
                 setTimeout(() => dynamicType(cap, text, 85), 450);
-            }
-        }
-        // دالة العداد التنازلي للمفاجأة
-        function toggleCountdown() {
-            const box = document.getElementById('countdown-box');
-            const timerFull = document.getElementById('countdown-timer-full');
-            const countdownText = document.getElementById('countdown-text'); 
-            
-            // تفعيل حركة التوسيع (Active)
-            box.classList.toggle('active');
-            
-            const isActive = box.classList.contains('active');
-            
-            // إظهار أو إخفاء العداد والجملة بناءً على حالة الضغط
-            if (timerFull) timerFull.style.display = isActive ? 'block' : 'none';
-            if (countdownText) countdownText.style.display = isActive ? 'block' : 'none'; 
-            
-            // التاريخ المستهدف: 12 يونيو 2026
-            const target = new Date("June 12, 2026 00:00:00").getTime();
-            
-            if (isActive) {
-                // تحديث العداد كل ثانية
-                const counterInt = setInterval(() => {
-                    // لو قفلنا الصندوق نوقف العد عشان الجهاز ميهنجش
-                    if (!box.classList.contains('active')) { 
-                        clearInterval(counterInt); 
-                        return; 
-                    }
-                    
-                    const now = new Date().getTime();
-                    const gap = target - now;
-                    
-                    // لو وصلنا للتاريخ المطلوب
-                    if (gap < 0) {
-                        clearInterval(counterInt);
-                        timerFull.innerText = "وصلنا لأجمل لحظة في الدنيا! ❤️";
-                        return;
-                    }
-
-                    // حساب الأيام والساعات والدقائق والثواني
-                    const d = Math.floor(gap / (1000 * 60 * 60 * 24));
-                    const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-                    const s = Math.floor((gap % (1000 * 60)) / 1000);
-                    
-                    timerFull.innerText = `${d} يوم : ${h} ساعة : ${m} دقيقة : ${s} ثانية`;
-                }, 1000);
             }
         }
     </script>
