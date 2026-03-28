@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى أميرتي 💖</title>
+    <title>لولتتييييي 💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
@@ -166,12 +166,15 @@
                 <div class="track" onclick="playTrack('song4.mp3', this)">🎵 ف عيني انتي احلي م كل البنات</div>
                 <div class="track" onclick="playTrack('song5.mp3', this)">🎵 مزه </div>
             </div>
-
             <div id="countdown-box" class="glass-box" onclick="toggleCountdown()">
-                <span id="click-hint" style="font-weight: bold; font-size: 18px; color: #ffeb3b;">✨ اضغطي هنا فيه مفاجأة.. ✨</span>
-                <div id="countdown-timer-full" style="display:none;"></div>
-            </div>
-        </div>
+    <span id="click-hint" style="font-weight: bold; font-size: 18px; color: #ffeb3b;">✨ اضغطي هنا فيه مفاجأة.. ✨</span>
+    
+    <p id="countdown-text" style="display:none; color: #ff69b4; margin-top: 20px; font-weight: bold; font-size: 1.1rem; line-height: 1.6;">
+        ده الوقت اللي اتبقي علي اجمل لحظه حصلت ف الدنيا ❤️
+    </p>
+
+    <div id="countdown-timer-full" style="display:none; margin-top: 20px;"></div>
+</div>
 
         <div class="glass-box">
             <h3 style="margin-bottom: 30px; color: #ff69b4;">كلام من قلبي ليكي ✨🌸</h3>
@@ -355,6 +358,53 @@
             const cap = el.querySelector('.card-caption');
             if(el.classList.contains('flipped') && cap.innerHTML === '') {
                 setTimeout(() => dynamicType(cap, text, 85), 450);
+            }
+        }
+        // دالة العداد التنازلي للمفاجأة
+        function toggleCountdown() {
+            const box = document.getElementById('countdown-box');
+            const timerFull = document.getElementById('countdown-timer-full');
+            const countdownText = document.getElementById('countdown-text'); 
+            
+            // تفعيل حركة التوسيع (Active)
+            box.classList.toggle('active');
+            
+            const isActive = box.classList.contains('active');
+            
+            // إظهار أو إخفاء العداد والجملة بناءً على حالة الضغط
+            if (timerFull) timerFull.style.display = isActive ? 'block' : 'none';
+            if (countdownText) countdownText.style.display = isActive ? 'block' : 'none'; 
+            
+            // التاريخ المستهدف: 12 يونيو 2026
+            const target = new Date("June 12, 2026 00:00:00").getTime();
+            
+            if (isActive) {
+                // تحديث العداد كل ثانية
+                const counterInt = setInterval(() => {
+                    // لو قفلنا الصندوق نوقف العد عشان الجهاز ميهنجش
+                    if (!box.classList.contains('active')) { 
+                        clearInterval(counterInt); 
+                        return; 
+                    }
+                    
+                    const now = new Date().getTime();
+                    const gap = target - now;
+                    
+                    // لو وصلنا للتاريخ المطلوب
+                    if (gap < 0) {
+                        clearInterval(counterInt);
+                        timerFull.innerText = "وصلنا لأجمل لحظة في الدنيا! ❤️";
+                        return;
+                    }
+
+                    // حساب الأيام والساعات والدقائق والثواني
+                    const d = Math.floor(gap / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((gap % (1000 * 60)) / 1000);
+                    
+                    timerFull.innerText = `${d} يوم : ${h} ساعة : ${m} دقيقة : ${s} ثانية`;
+                }, 1000);
             }
         }
     </script>
